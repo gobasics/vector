@@ -8,6 +8,13 @@ import (
 // Vector is a float64 slice
 type Vector []float64
 
+// Apply updates every element in Vector a with the results of applying function f
+func (a Vector) Apply(f func(float64) float64) {
+	for k := range a {
+		a[k] = f(a[k])
+	}
+}
+
 // Equal returns true if two Vectors have the same number of elements and
 // the corresponding elements are equal.
 func (a Vector) Equal(b Vector) bool {
