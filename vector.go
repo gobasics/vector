@@ -54,6 +54,16 @@ func (a Vector) Equal(b Vector) bool {
 	return true
 }
 
+// Get returns a slice of floats that Vector a points to.
+func (a Vector) Get() []float64 {
+	return a
+}
+
+// Set copies the elements of slice b into Vector a.
+func (a Vector) Set(b []float64) {
+	copy(a, b)
+}
+
 // String returns a string representation of Vector a
 func (a Vector) String() string {
 	s := make([]string, len(a))

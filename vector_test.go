@@ -107,6 +107,40 @@ func TestEqual(t *testing.T) {
 	}
 }
 
+func TestGet(t *testing.T) {
+	for k, v := range []struct {
+		a, want Vector
+	}{
+		{Vector{1, 2, 3}, Vector{1, 2, 3}},
+		{Vector{4, 5, 6}, Vector{4, 5, 6}},
+	} {
+		t.Run(strconv.Itoa(k), func(t *testing.T) {
+			got := Vector(v.a.Get())
+			if !v.want.Equal(got) {
+				t.Errorf("want %s, got %s", v.want, got)
+			}
+		})
+	}
+}
+
+func TestSet(t *testing.T) {
+	for k, v := range []struct {
+		a, b Vector
+	}{
+		{Vector{1, 2, 3}, Vector{4, 5, 6}},
+		{Vector{4, 5, 6}, Vector{1, 2, 3}},
+	} {
+		t.Run(strconv.Itoa(k), func(t *testing.T) {
+			want := v.b.String()
+			v.a.Set(v.b.Get())
+			got := v.a.String()
+			if want != got {
+				t.Errorf("want %s, got %s", want, got)
+			}
+		})
+	}
+}
+
 func TestString(t *testing.T) {
 	for k, v := range []struct {
 		a    Vector
