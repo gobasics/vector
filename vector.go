@@ -15,6 +15,18 @@ func (a Vector) Apply(f func(float64) float64) {
 	}
 }
 
+// Dot calculates the Dot Product of Vectors a and b
+func (a Vector) Dot(b Vector) (sum float64) {
+	la, lb := len(a), len(b)
+	if la != lb {
+		panic(fmt.Sprintf("can not calculate Dot Product; len(a)==%d, len(b)==%d", la, lb))
+	}
+	for k := 0; k < la; k++ {
+		sum += a[k] * b[k]
+	}
+	return sum
+}
+
 // Equal returns true if two Vectors have the same number of elements and
 // the corresponding elements are equal.
 func (a Vector) Equal(b Vector) bool {

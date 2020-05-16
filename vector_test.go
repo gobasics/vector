@@ -26,6 +26,35 @@ func TestApply(t *testing.T) {
 	}
 }
 
+func TestDot(t *testing.T) {
+	for k, v := range []struct {
+		a, b        []float64
+		wantPanic   bool
+		wantProduct float64
+	}{
+		{[]float64{1, 2, 3}, []float64{4, 5, 6}, false, 32},
+		{[]float64{1, 2}, []float64{4, 5, 6}, true, 0},
+	} {
+		t.Run(strconv.Itoa(k), func(t *testing.T) {
+			defer func() {
+				var gotPanic bool
+				if r := recover(); r != nil {
+					gotPanic = true
+				}
+
+				if v.wantPanic != gotPanic {
+					t.Errorf("want panic %t, got panic %t", v.wantPanic, gotPanic)
+				}
+			}()
+
+			gotProduct := Vector(v.a).Dot(Vector(v.b))
+			if v.wantProduct != gotProduct {
+				t.Errorf("want %g, got %g", v.wantProduct, gotProduct)
+			}
+		})
+	}
+}
+
 func TestEqual(t *testing.T) {
 	for k, v := range []struct {
 		a, b Vector
