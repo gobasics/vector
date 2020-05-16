@@ -9,7 +9,7 @@ import (
 type Vector []float64
 
 // Add performs inplace elementwise addition of Vector b into b
-func (a Vector) Add(b Vector) {
+func (a Vector) Add(b []float64) {
 	la, lb := len(a), len(b)
 	if la != lb {
 		panic(fmt.Sprintf("can not calculate a.Add(b); len(a)==%d, len(b)==%d", la, lb))
@@ -27,7 +27,7 @@ func (a Vector) Apply(f func(float64) float64) {
 }
 
 // Dot calculates the Dot Product of Vectors a and b
-func (a Vector) Dot(b Vector) (sum float64) {
+func (a Vector) Dot(b []float64) (sum float64) {
 	la, lb := len(a), len(b)
 	if la != lb {
 		panic(fmt.Sprintf("can not calculate Dot Product; len(a)==%d, len(b)==%d", la, lb))
@@ -40,7 +40,7 @@ func (a Vector) Dot(b Vector) (sum float64) {
 
 // Equal returns true if two Vectors have the same number of elements and
 // the corresponding elements are equal.
-func (a Vector) Equal(b Vector) bool {
+func (a Vector) Equal(b []float64) bool {
 	if len(a) != len(b) {
 		return false
 	}
