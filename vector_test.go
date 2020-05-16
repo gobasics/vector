@@ -31,6 +31,9 @@ func TestEqual(t *testing.T) {
 		a, b Vector
 		want bool
 	}{
+		{Vector{0}, Vector{0}, true},
+		{Vector{1}, Vector{1}, true},
+		{Vector{1, 2}, Vector{1, 2}, true},
 		{Vector{1, 2, 3}, Vector{1, 2, 3}, true},
 		{Vector{1, 2}, Vector{1, 2, 3}, false},
 		{Vector{1, 2, 4}, Vector{1, 2, 3}, false},
