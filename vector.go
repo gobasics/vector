@@ -8,6 +8,17 @@ import (
 // Vector is a float64 slice
 type Vector []float64
 
+// Add performs inplace elementwise addition of Vector b into b
+func (a Vector) Add(b Vector) {
+	la, lb := len(a), len(b)
+	if la != lb {
+		panic(fmt.Sprintf("can not calculate a.Add(b); len(a)==%d, len(b)==%d", la, lb))
+	}
+	for k := 0; k < la; k++ {
+		a[k] += b[k]
+	}
+}
+
 // Apply updates every element in Vector a with the results of applying function f
 func (a Vector) Apply(f func(float64) float64) {
 	for k := range a {

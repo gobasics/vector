@@ -5,6 +5,37 @@ import (
 	"testing"
 )
 
+func TestAdd(t *testing.T) {
+	for k, v := range []struct {
+		a, b, sum []float64
+		wantPanic bool
+	}{
+		{[]float64{1, 2, 3}, []float64{4, 5, 6}, []float64{5, 7, 9}, false},
+		{[]float64{1, 2}, []float64{4, 5, 6}, []float64{}, true},
+	} {
+		t.Run(strconv.Itoa(k), func(t *testing.T) {
+			defer func() {
+				var gotPanic bool
+				if r := recover(); r != nil {
+					gotPanic = true
+				}
+
+				if v.wantPanic != gotPanic {
+					t.Errorf("want panic %t, got panic %t", v.wantPanic, gotPanic)
+				}
+			}()
+
+			want := Vector(v.sum)
+			got := Vector(v.a)
+			b := Vector(v.b)
+			got.Add(b)
+			if !want.Equal(got) {
+				t.Errorf("want %s, got %s", want, got)
+			}
+		})
+	}
+}
+
 func TestApply(t *testing.T) {
 	for k, v := range []struct {
 		a    Vector
